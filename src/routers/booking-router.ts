@@ -5,10 +5,9 @@ import { bookingSchema } from '@/schemas/booking-schemas';
 
 const bookingRouter = Router();
 
-bookingRouter
-  .all('/*', authenticateToken)
-  .get('/', getBooking)
-  .post('/', validateBody(bookingSchema), postBooking)
-  .put('/:bookingId', validateBody(bookingSchema), putBooking);
+bookingRouter.all('/*', authenticateToken);
+bookingRouter.get('/', getBooking);
+bookingRouter.post('/', validateBody(bookingSchema), postBooking);
+bookingRouter.put('/:bookingId', validateBody(bookingSchema), putBooking);
 
 export { bookingRouter };

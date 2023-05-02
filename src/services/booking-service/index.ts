@@ -3,7 +3,7 @@ import bookingRepository from '@/repositories/booking-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import ticketsRepository from '@/repositories/tickets-repository';
 
-async function roomCapacityCheck(roomId: number) {
+async function roomCapacity (roomId: number) {
   const room = await bookingRepository.findRoomById(roomId);
   if (!room) throw notFoundError();
   if (room.capacity === 0) throw forbiddenOperationError();
@@ -29,7 +29,7 @@ async function createBooking(userId: number, roomId: number) {
   if (!ticket || ticket.status === 'RESERVED' || ticket.TicketType.isRemote || !ticket.TicketType.includesHotel) {
     throw forbiddenOperationError();
   }
-  await roomCapacityCheck(roomId);
+  await roomCapacity(roomId);
   const booking = await bookingRepository.insertBooking(userId, roomId);
   return {
     bookingId: booking.id,
